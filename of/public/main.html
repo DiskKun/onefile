@@ -1,66 +1,12 @@
 <html>
 	<head>
 		<title>One-File</title>
-		<style>
-			button {
-				font-family: Courier;
-			}
-			h1 {
-				font-family: Courier;
-				text-align: center;
-			}
-			input {
-				font-family: Courier;
-			}
-			p {
-				text-align: center;
-				font-family: Courier;
-			}
-			.center {
-				display:block;	
-				margin-left: auto;
-				margin-right: auto;
-			}
-			a {
-				color: blue;
-			}
-			footer {
-				text-align: center;
-				font-family:Courier;
-			}
-			#chat {
-				height:300px;
-				width:400px;
-			}
-			#send {
-				width:400px;
-			}
-			img {
-				border-width: 10px;
-				max-width: 100vw;
-				max-height: 50vh;
-			}
-			button, #button {
-				transition-duration: 0.5s;
-				background-color: lightblue;
-				width: 50%;
-				height: 10%;
-				font-size: 20px;
-			}
-			button:hover, #button:hover {
-				background-color: lightpink;
-			}
-			#oneFileImg, #oneFileVideo, #unsupported, #oneFileAudio {
-				max-width: 100%;
-			}
-			#onefileupload {
-				font-size: 25px;
-			}
-		</style>
+		<link rel="stylesheet" href="main.css">
 		<script type="text/javascript">
 			var fileName
 			var extension
-			function getFileName() {
+			function getFileName() {	
+				document.querySelector(".message_form__input").focus()
 				document.getElementById("oneFileImg").style.display = "none"
 				document.getElementById("oneFileVideo").style.display = "none"
 				document.getElementById("oneFileAudio").style.display = "none"
@@ -89,7 +35,12 @@
 			}
 			window.onload = function(){
 				getFileName()
+				document.querySelector(".message_form__input").focus()
 			}
+			function darkMode() {
+				document.querySelector("h1").style.color = "white"
+			}
+
 		</script>
 	</head>
 	<body>
@@ -101,12 +52,29 @@
 		<p><a id="oneFileDownload" href="">Download File</a></p>
 		<form action="/upload" method="post" encType="multipart/form-data">
 			<input type="file" class="center" name="file" id="onefileupload">
-			<input type="submit" id="button" class="center">
+			<input type="submit" class="center button">
 		</form>
-		<button onclick="getFileName()" class="center">Reload Media</button>
-		<!--<form>
-			<input type="text" readonly id="chat" class="center">
-			<input type="text" class="center" placeholder="Send a message..." autofocus id="send">
-		</form>-->
+		<button onclick="getFileName()" class="center button">Reload Media</button>
+	<div class="container center">
+      <div class="inbox">
+        <div class="inbox__people">
+          Active users: <span id="activeUsers"></span>
+        </div>
+        <div class="inbox__messages">
+          <div class="messages__history"></div>
+          <div class="fallback"></div>
+        </div>
+      </div>
+
+      <form class="message_form">
+        <input type="text" class="message_form__input" placeholder="Type a message" />
+        <button class="message_form__button" type="submit">
+          Enter
+        </button>
+      </form>
+    </div>
+	<!--<button onclick="darkMode()">Toggle Dark Mode</button>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+	<script src="chat.js"></script>
 	</body>
 </html>

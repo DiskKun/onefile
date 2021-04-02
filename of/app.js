@@ -4,13 +4,15 @@ const path = require('path');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const fsExtra = require('fs-extra')
+const socket = require("socket.io");
+
 // handle static files like stylesheets and images
 app.use(express.static('public'));
 app.use(fileUpload());
 
 // Set up root path, sending index.html
 app.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname + '/index.html'));
+	res.sendFile(path.join(__dirname + '/public/index.html'));
 })
 
 app.get('/view', function (req, res) {
@@ -45,6 +47,31 @@ app.post('/upload', function(req, res) {
 });
 
 // Launch Server
-app.listen(3000, function () {
+const server = app.listen(3000, function () {
 	console.log('OneFile listening on port 3000!')
+});
+
+// Static files
+app.use(express.static("public"));
+
+const io = socket(server);
+const activeUsers = new Set();
+
+io.on("connection", function (socket) {
+  console.log("Made socket connection");
+
+  socket.on("new user", function (data) {
+    socket.userId = data;
+    activeUsers.add(data);
+    io.emit("new user", [...activeUsers]);
+  });
+
+  socket.on("disconnect", () => {
+    activeUsers.delete(socket.userId);
+    io.emit("user disconnected", socket.userId);
+  });
+
+  socket.on("chat message", function (data) {
+    io.emit("chat message", data);
+  });
 });

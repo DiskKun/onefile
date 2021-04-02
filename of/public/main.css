@@ -1,0 +1,82 @@
+
+button {
+	font-family: Courier;
+}
+h1 {
+	font-family: Courier;
+	text-align: center;
+}
+input {
+	font-family: Courier;
+}
+p {
+	text-align: center;
+	font-family: Courier;
+}
+.center {
+	display:block;	
+	margin-left: auto;
+	margin-right: auto;
+}
+a {
+	color: blue;
+}
+footer {
+	text-align: center;
+	font-family:Courier;
+}
+#chat {
+	height:300px;
+	width:400px;
+}
+#send {
+	width:400px;
+}
+img {
+	border-width: 10px;
+	max-width: 100vw;
+	max-height: 50vh;
+}
+.button {
+	transition-duration: 0.5s;
+	background-color: lightblue;
+	width: 25%;
+	height: 5%;
+	font-size: 20px;
+	border-width: 1px;
+	padding: 0px;
+}
+.button:hover {
+	background-color: lightpink;
+}
+form {
+	margin: 0;
+}
+#oneFileImg, #oneFileVideo, #unsupported, #oneFileAudio {
+	max-width: 100%;
+	max-height: 260px;
+}
+#onefileupload {
+	font-size: 15px;
+}
+.container div {
+	font-family: courier;
+}
+.messages__history {
+	overflow-y: scroll;
+	height: 200px;
+	resize: vertical;
+}
+.container {
+	width: 50%;
+	border: 1px solid black;
+}
+.sent__message {
+	color: red;
+}
+.received__message {
+	color: blue;
+}
+.message_form__input {
+	width: 100%
+}
